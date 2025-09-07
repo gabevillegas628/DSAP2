@@ -27,6 +27,9 @@ frontend:
       commands:
         - echo "=== Frontend PreBuild Phase ==="
         - pwd
+        - echo "Navigating back to root directory..."
+        - cd $CODEBUILD_SRC_DIR
+        - pwd
         - ls -la
         - echo "Checking if client directory exists..."
         - test -d client && echo "Client directory found" || echo "Client directory NOT found"
