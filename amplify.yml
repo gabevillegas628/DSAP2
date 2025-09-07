@@ -1,0 +1,32 @@
+version: 1
+backend:
+  phases:
+    preBuild:
+      commands:
+        - cd server
+        - npm ci
+        - npx prisma generate
+    build:
+      commands:
+        - echo "Backend build completed"
+  artifacts:
+    baseDirectory: server
+    files:
+      - '**/*'
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - cd client
+        - npm ci
+    build:
+      commands:
+        - npm run build
+  artifacts:
+    baseDirectory: client/build
+    files:
+      - '**/*'
+  cache:
+    paths:
+      - client/node_modules/**/*
+      - server/node_modules/**/*
