@@ -5,9 +5,6 @@ backend:
       commands:
         - echo "=== BACKEND PREBUILD START ==="
         - pwd
-        - echo "=== what is the home directory???? ==="
-        - cd ~
-        - pwd
         - ls -la
         - echo "Changing to server directory..."
         - cd server
