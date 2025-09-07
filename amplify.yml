@@ -7,9 +7,7 @@ backend:
         - pwd
         - ls -la
         - echo "Navigating to project directory..."
-        - echo "Current Directory:"
-        - pwd
-        - cd DSAP2
+        - echo "Current Directory"
         - pwd
         - ls -la
         - echo "Changing to server directory..."
@@ -35,7 +33,7 @@ frontend:
         - pwd
         - ls -la
         - echo "Navigating to project directory..."
-        - cd DSAP2
+        - cd ..
         - pwd
         - ls -la
         - echo "Checking if client directory exists..."
