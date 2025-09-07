@@ -5,6 +5,9 @@ backend:
       commands:
         - echo "=== BACKEND PREBUILD START ==="
         - pwd
+        - echo "=== what is the home directory???? ==="
+        - cd ~
+        - pwd
         - ls -la
         - echo "Changing to server directory..."
         - cd server
@@ -18,7 +21,7 @@ backend:
     build:
       commands:
         - echo "=== BACKEND BUILD START ==="
-        - cd server
+        - cd ../server
         - echo "Server build completed (Node.js apps typically don't need compilation)"
 frontend:
   phases:
@@ -28,7 +31,7 @@ frontend:
         - pwd
         - ls -la
         - echo "Changing to client directory..."
-        - cd client
+        - cd ../client
         - pwd
         - ls -la
         - echo "Installing client dependencies..."
@@ -36,7 +39,6 @@ frontend:
     build:
       commands:
         - echo "=== FRONTEND BUILD START ==="
-        - cd client
         - pwd
         - echo "Building React app..."
         - npm run build
