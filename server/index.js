@@ -96,6 +96,15 @@ const storage = multer.diskStorage({
   }
 });
 **/
+
+
+const s3 = new AWS.S3({
+  accessKeyId: process.env.S3_ACCESS_KEY_ID,
+  secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
+  region: process.env.S3_REGION
+});
+
+
 //Multer on S3
 const storage = multerS3({
   s3: s3,
@@ -110,11 +119,6 @@ const storage = multerS3({
   }
 });
 
-const s3 = new AWS.S3({
-  accessKeyId: process.env.S3_ACCESS_KEY_ID,
-  secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
-  region: process.env.S3_REGION
-});
 
 const fileFilter = (req, file, cb) => {
   // Only allow .ab1 files
@@ -574,6 +578,19 @@ const requireRole = (roles) => {
     }
   };
 };
+
+app.get('/api/debug/db-check', async (req, res) => {
+  try {
+    const userCount = await prisma.user.count();
+    const directors = await prisma.user.findMany({
+      where: { role: 'director' },
+      select: { email: true, role: true, status: true }
+    });
+    res.json({ userCount, directors });
+  } catch (error) {
+    res.json({ error: error.message });
+  }
+});
 
 // Test route
 app.get('/api/test', (req, res) => {
