@@ -52,7 +52,7 @@ frontend:
         - ls -la build/
         - pwd
   artifacts:
-    baseDirectory: /codebuild/output/src*/src/DSAP2/client/build
+    baseDirectory: ./build
     files:
       - '**/*'
   cache:
