@@ -6,6 +6,10 @@ backend:
         - echo "=== Backend PreBuild Phase ==="
         - pwd
         - ls -la
+        - echo "Navigating to project directory..."
+        - cd DSAP2
+        - pwd
+        - ls -la
         - echo "Changing to server directory..."
         - cd server
         - pwd
@@ -18,7 +22,7 @@ backend:
       commands:
         - echo "Backend build completed"
   artifacts:
-    baseDirectory: server
+    baseDirectory: DSAP2/server
     files:
       - '**/*'
 frontend:
@@ -27,8 +31,9 @@ frontend:
       commands:
         - echo "=== Frontend PreBuild Phase ==="
         - pwd
-        - echo "Navigating back to root directory..."
-        - cd $CODEBUILD_SRC_DIR
+        - ls -la
+        - echo "Navigating to project directory..."
+        - cd DSAP2
         - pwd
         - ls -la
         - echo "Checking if client directory exists..."
@@ -46,10 +51,10 @@ frontend:
         - echo "Build completed, checking build directory..."
         - ls -la build/
   artifacts:
-    baseDirectory: client/build
+    baseDirectory: DSAP2/client/build
     files:
       - '**/*'
   cache:
     paths:
-      - client/node_modules/**/*
-      - server/node_modules/**/*
+      - DSAP2/client/node_modules/**/*
+      - DSAP2/server/node_modules/**/*
