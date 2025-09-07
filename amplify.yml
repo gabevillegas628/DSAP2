@@ -51,7 +51,7 @@ frontend:
         - echo "Build completed, checking build directory..."
         - ls -la build/
   artifacts:
-    baseDirectory: DSAP2/client/build
+    baseDirectory: build
     files:
       - '**/*'
   cache:
