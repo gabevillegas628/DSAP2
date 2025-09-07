@@ -50,6 +50,7 @@ frontend:
         - npm run build
         - echo "Build completed, checking build directory..."
         - ls -la build/
+        - pwd
   artifacts:
     baseDirectory: /codebuild/output/src*/src/DSAP2/client/build
     files:
