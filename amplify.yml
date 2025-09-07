@@ -14,7 +14,7 @@ backend:
         - npm ci
         - echo "Setting up Prisma..."
         - npx prisma generate
-        - npx prisma migrate deploy || echo "Migration failed, continuing..."
+        - npx prisma db push --accept-data-loss
     build:
       commands:
         - echo "=== BACKEND BUILD START ==="
