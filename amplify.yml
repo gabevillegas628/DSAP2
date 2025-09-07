@@ -3,8 +3,16 @@ backend:
   phases:
     preBuild:
       commands:
+        - echo "=== Backend PreBuild Phase ==="
+        - pwd
+        - ls -la
+        - echo "Changing to server directory..."
         - cd server
+        - pwd
+        - ls -la
+        - echo "Installing server dependencies..."
         - npm ci
+        - echo "Generating Prisma client..."
         - npx prisma generate
     build:
       commands:
@@ -17,11 +25,23 @@ frontend:
   phases:
     preBuild:
       commands:
+        - echo "=== Frontend PreBuild Phase ==="
+        - pwd
+        - ls -la
+        - echo "Checking if client directory exists..."
+        - test -d client && echo "Client directory found" || echo "Client directory NOT found"
+        - echo "Changing to client directory..."
         - cd client
+        - pwd
+        - ls -la
+        - echo "Installing client dependencies..."
         - npm ci
     build:
       commands:
+        - echo "Building React app..."
         - npm run build
+        - echo "Build completed, checking build directory..."
+        - ls -la build/
   artifacts:
     baseDirectory: client/build
     files:
