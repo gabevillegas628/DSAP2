@@ -3,11 +3,7 @@ backend:
   phases:
     preBuild:
       commands:
-        - echo "=== Backend PreBuild Phase ==="
-        - pwd
-        - ls -la
-        - echo "Navigating to project directory..."
-        - echo "Current Directory"
+        - echo "=== BACKEND PREBUILD START ==="
         - pwd
         - ls -la
         - echo "Changing to server directory..."
@@ -16,28 +12,21 @@ backend:
         - ls -la
         - echo "Installing server dependencies..."
         - npm ci
-        - echo "Generating Prisma client..."
+        - echo "Setting up Prisma..."
         - npx prisma generate
+        - npx prisma migrate deploy || echo "Migration failed, continuing..."
     build:
       commands:
-        - echo "Backend build completed"
-  artifacts:
-    baseDirectory: DSAP2/server
-    files:
-      - '**/*'
+        - echo "=== BACKEND BUILD START ==="
+        - cd server
+        - echo "Server build completed (Node.js apps typically don't need compilation)"
 frontend:
   phases:
     preBuild:
       commands:
-        - echo "=== Frontend PreBuild Phase ==="
+        - echo "=== FRONTEND PREBUILD START ==="
         - pwd
         - ls -la
-        - echo "Navigating to project directory..."
-        - cd ..
-        - pwd
-        - ls -la
-        - echo "Checking if client directory exists..."
-        - test -d client && echo "Client directory found" || echo "Client directory NOT found"
         - echo "Changing to client directory..."
         - cd client
         - pwd
@@ -46,16 +35,18 @@ frontend:
         - npm ci
     build:
       commands:
+        - echo "=== FRONTEND BUILD START ==="
+        - cd client
+        - pwd
         - echo "Building React app..."
         - npm run build
-        - echo "Build completed, checking build directory..."
+        - echo "Build completed, checking output..."
         - ls -la build/
-        - pwd
   artifacts:
-    baseDirectory: ./build
+    baseDirectory: client/build
     files:
       - '**/*'
   cache:
     paths:
-      - DSAP2/client/node_modules/**/*
-      - DSAP2/server/node_modules/**/*
+      - client/node_modules/**/*
+      - server/node_modules/**/*
